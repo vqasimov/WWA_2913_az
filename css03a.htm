@@ -1,0 +1,154 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CSS Animation</title>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				background: #fff;
+				margin: 0;
+			}
+			#banner {
+				position: relative;
+				width: 300px;
+				height: 250px;
+				border: 1px solid gray;
+				overflow: hidden;
+			}
+			#banner>* { position: absolute; }
+			#goy {
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: linear-gradient(#CCD0FA, #FFF);
+				opacity: 1;
+				animation: agoy 2s;
+			}
+			#deniz {
+				width: 100%;
+				height: 50%;
+				bottom: -50%;
+				left: 0;
+				background: #0688C3;
+				animation: adeniz 2s ease 1s forwards;
+			}
+			#b1 {
+				width: 70px;
+				top: 5px;
+				right: -100px;
+				animation: abulud 10s linear infinite 2s;
+			}
+			#b2 { width: 65px;
+				top: 75px;
+				right: -100px;
+				animation: abulud 11s linear infinite 5s; 
+			}
+			#b3 { width: 60px;
+				top: 45px;
+				right: -100px;
+				animation: abulud 9s linear infinite 8s; 
+			}
+			#boat {
+				width: 100px;
+				animation: aboat 2s linear alternate infinite; 
+			}
+			#qayiq {				
+				bottom: 40%; 
+				left: -100px;
+				animation: aqayiq 15s linear 3s; 
+			}
+			#qayiq:hover {
+				animation-play-state: paused;
+			}
+			#title { 
+				width: 100%;
+				margin: 20px 0 0 0;
+				font: bold 3em/1.5 'Anton', sans-serif;
+				color: #fff;
+				opacity: 0;
+				text-align: center;
+				animation: atitle 1s ease 18s forwards; 
+			}
+			#btn {
+				right: 50%;
+				bottom: -50px;
+				transform: translate(50%);
+				animation: abutton 1s ease 19s forwards; 
+			}
+			@keyframes agoy {
+				from {opacity: 0}
+				to {opacity: 1}
+			}
+			@keyframes adeniz {
+				from {bottom: -50%;}
+				to {bottom: 0;}
+			}
+			@keyframes abulud {
+				from {right: -100px;}
+				to {right: 300px;}
+			}
+			@keyframes aqayiq {
+				from {left: -100px;}
+				to {left: 300px;}
+			}
+			@keyframes aboat {
+				from {transform: rotate(-3deg);}
+				to {transform: rotate(3deg);}
+			}
+			@keyframes atitle {
+				from {
+					opacity: 0;
+					transform: scale(.1, .1);
+					transform: rotate(-360deg);
+				}
+				to {
+					opacity: 1;
+					transform: scale(1, 1);
+					transform: rotate(360deg);
+				}
+			}
+			@keyframes abutton {
+				from {bottom: -50px;}
+				to { bottom: 30px;}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="banner">			
+			<div id="goy"></div>
+			<div id="deniz"></div>
+			<img id="b1" src="../img/bulud.png" />
+			<img id="b2" src="../img/bulud.png" />
+			<img id="b3" src="../img/bulud.png" />
+			<div id="qayiq">
+				<img id="boat" src="../img/boat.png" />
+			</div>
+			<h1 id="title">ŞIXOVDA<br />TƏTİL</h1>
+			<button id="btn">Sifariş et</button>
+		</div>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

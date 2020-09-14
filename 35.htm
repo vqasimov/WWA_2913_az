@@ -1,0 +1,38 @@
+<script>
+
+
+	function aclean(arr) {
+		let set = new Set();
+		let arr1 = [];
+		arr.forEach(soz => {
+			if(!set.has(Array.from(soz).sort().join("").toLowerCase())){
+				set.add(Array.from(soz).sort().join("").toLowerCase());
+				arr1.push(soz);
+			}
+		});
+		return arr1;
+	}
+
+	let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+	alert( aclean(arr) );
+
+
+
+
+
+/*
+	let set = new Set();
+	let arr = [];
+	
+	while(set.size < 15) set.add(rand(1,15));
+	set.forEach(val => arr.push(val));
+	
+	alert(arr);
+	
+	
+	function rand(min, max) {
+		return Math.floor(Math.random() * (max - min + 1) ) + min;
+	}
+*/	
+</script>

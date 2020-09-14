@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS Arrays</title>
+		<style>
+			table {	border-collapse: collapse; 
+					margin: 100px auto;}
+			td { border: 1px solid silver; 
+				width: 100px; height: 100px; 
+				text-align: center;
+				font: bold 3rem Arial;
+				cursor: pointer; }
+		</style>
+	</head>
+	<body>
+		<table id="test"></table>
+		
+		<script>
+			let test = document.getElementById("test");
+			let A = [];
+			let n = 4;
+			let kod = "";
+			let sira = 0;
+			
+			for(i = 0; i <= 15; i++) A[i] = i;
+			
+			console.log(A);
+			
+			for(i = 0; i < n; i++) {
+				kod += "<tr>";
+				for(j = 0; j < n; j++) {
+					r = rnd(0, A.length-1);
+					kod += '<td id="x' + i + j + '" onclick="vur(\'x' + i + j + '\')">' + A[r] + '</td>';
+					A.splice(r, 1);
+				}
+				kod+="</tr>";
+			}
+			test.innerHTML = kod;
+			
+			function vur(id) {
+				xana = document.getElementById(id);
+				if(xana.innerHTML == sira) {
+					xana.style.color = "silver";
+					sira++;
+				}
+				
+			}
+			function rnd(min, max) {
+				return Math.floor(Math.random() * (max - min + 1) ) + min;
+			}
+		</script>
+	</body>
+</html>
+
+

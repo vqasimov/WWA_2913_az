@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CSS Animation</title>
+		<style>
+			#zad {
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				border: 1px solid gray;
+				/*
+				animation-name: anim1;
+				animation-duration: 6s;
+				animation-timing-function: ease-in-out;
+				animation-delay: 0;
+				animation-iteration-count: 2;
+				animation-direction: alternate;				
+				animation-fill-mode: forwards;
+				*/
+				animation: anim1 5s ease-in-out 0s 2 alternate forwards;
+			}
+			
+			@keyframes anim1 {
+				0% {
+					left: 0;
+					top: 0;
+					background: red;
+				}
+				25% {
+					left: 50%;
+					top: 0;
+					background: yellow;
+				}
+				50% {
+					left: 50%;
+					top: 50%; 
+					background: green;
+				}
+				75% {
+					left: 0;
+					top: 50%;
+					background: blue;
+				}
+				100% {
+					left: 0;
+					top: 0;
+					background: red;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="zad"></div>
+	</body>
+</html>

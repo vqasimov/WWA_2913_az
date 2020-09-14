@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		Password: <input id="inp" type="text" />
+		<button type="submit" onclick="yoxla()">Ok</button>
+		<script>
+			function yoxla() {
+				let str = document.getElementById("inp").value;
+				//let email = str.match(/[\w.-]{2,}\@([\w-]{2,}\.)+[a-z]{2,}/) || [];
+				let saat = str.match(/([01]\d|2[0-3]):[0-5]\d/) || [];
+				
+				alert ( saat != null && saat[0] == str );
+				
+				//console.log( str.match(/bak[iıuü]/gi) );
+			}
+
+		</script>
+	</body>
+</html>

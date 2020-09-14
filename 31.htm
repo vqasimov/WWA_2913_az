@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS Objecst</title>
+	</head>
+	<body>
+
+		<script>
+			let O = {sira: 5, ad: "Filankes", goz: "qara", boy: 180, qan: "ARH+" };
+
+			let adam = {
+				ad: "Elgun",
+				sad: "Quliyev",
+				cins: "kisi",
+				boy: 179,
+				il: 1993,
+				tamAd: function() {
+					return this.ad + " " + this.sad;
+				},
+				yas: function() {
+					 let d = new Date();
+					 return d.getFullYear() - this.il;
+				}
+			}
+			let kod = "";
+			for( prop in adam) {
+				kod += prop + ":" + adam[prop] + "\n";
+			}
+			console.log(kod);
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

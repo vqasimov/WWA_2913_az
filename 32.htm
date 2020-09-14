@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS Strings</title>
+		<style>
+			body { background: black; color: yellow; display: flex; }
+			#zad { font: bold 3em Courier; margin: auto;}
+		</style>
+	</head>
+	<body>
+		<h1 id="zad"></h1>
+
+
+		<script>
+			let text = "Shakir Shekerovich".toUpperCase();
+			let i = 0;
+			
+			replc("SH","Ş");
+			replc("CH","Ç");
+			
+
+			function replc(aa,a){
+				while(text.includes(aa)){
+					txt = "";
+					x = text.indexOf(aa);
+					txt = text.slice(0, x);
+					if(x > -1) txt += a;
+					if(x + 2 < text.length) txt += text.slice(x+2);
+					text = txt;
+				}
+			}
+			
+			
+			setInterval(function() {
+				if(i<text.length)
+					document.getElementById("zad").innerHTML += text[i++];
+			}, 100);
+				
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS</title>
+		<style>
+			body { margin: 0; }
+			#world { width: 100%; height: 100vh; position: relative; overflow: hidden; }
+			#world>div { position: absolute; }
+		</style>
+	</head>
+	<body>
+		<div id="world"></div>
+
+		<script>
+			const world = document.getElementById("world");
+			const flowerType = ["&#127808;","&#127804;", "&#127800;", "&#127802;"];
+			let flowers = [];
+			let bw = window.innerWidth;
+			let bh = window.innerHeight;
+			let t = 0;
+			
+			setInterval(flowerFall, 40);
+
+			function flowerFall() {
+				let gul;
+				let id;
+				world.innerHTML = '<h1 id="count"></h1>';
+				if(t++ %10 == 0) newFlower();
+				for(i = 0; i < flowers.length; i++) {
+					if(flowers[i][3] < bh) {
+						flowers[i][3] += flowers[i][4];    // y
+						flowers[i][2] += Math.sin(flowers[i][3] / 50)*2;  //x
+						id = "gul" + i;
+						world.innerHTML += '<div id="' + id + '"></div>';
+						gul = document.getElementById(id);
+						gul.innerHTML = flowerType[flowers[i][0]]; // flowerType
+						gul.style.fontSize = flowers[i][1] + "em";   // fontSize
+						gul.style.left = flowers[i][2];
+						gul.style.top = flowers[i][3];
+						document.getElementById("count").innerHTML = flowers.length;
+					} else {
+						flowers.splice(i, 1);
+					}
+				}	
+			}
+			function newFlower() {
+				let newFlower = [];
+				newFlower[0] = rand(0, flowerType.length - 1);  // Type
+				newFlower[1] = rand(10, 30) / 10; // fontSize
+				newFlower[2] = rand(0, bw - 20 * newFlower[1]); // X
+				newFlower[3] = - 18 * newFlower[1]; // Y
+				newFlower[4] = rand(20, 50)/10; // Speed
+				
+				flowers.push(newFlower);
+			}
+			function rand(min, max) {
+				return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

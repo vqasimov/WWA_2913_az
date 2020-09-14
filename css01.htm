@@ -1,0 +1,135 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>CSS Animation</title>
+		<style>
+			body { margin: 0; }
+			
+			nav {
+				background: gray;
+				overflow: auto;
+				padding: 10px;
+				margin: 0 0 20px 0;
+			}
+			
+			nav button {float: right;}
+		
+			nav ul {
+				box-sizing: border-box;
+				width: 50%;
+				height: 100vh;
+				position: fixed;
+				z-index: 99;
+				top: 0;
+				left: -50%;
+				background: #EFEFEF;
+				box-shadow: 0 0 5px gray;
+				margin: 0;
+				padding: 30px;
+				transition: left 2s;
+			}
+			nav:hover ul {
+				left: 0;
+			}
+		
+			#dropdown a {
+				display: inline-block;
+				padding: 10px 20px;
+				background: orange;
+				color: white;
+				text-decoration: none;
+				border-radius: 5px;
+			}
+			#dropdown ul {
+				/*display: none;*/
+				opacity: 0;
+				margin: 0;
+				padding: 20px;
+				background: yellow;
+				border-radius: 5px;
+				transition: opacity 1s;
+			}
+			#dropdown:hover ul {
+				/*display: block;*/
+				opacity: 1;
+			}
+			#button {
+				margin: 20px;
+				padding: 10px 30px;
+				background: green;
+				font: bold 1em Tahoma;
+				color: white;
+				border: none;
+				border-radius: 5px;
+				border-shadow: 1px 1px 5px gray;
+				transition: background 2s, color 1s;
+				overflow: hidden;
+				position: relative;
+			}
+			#button:hover {
+				background: lime;
+				color: black;
+			}
+			#button div {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 5px;
+				height: 5px;
+				transform: translate(-50%, -50%);
+				background: #FFF;
+				opacity: .3;
+				border-radius: 50%;
+				transition: width .5s, height .5s, opacity .5s;
+			}
+			#button:hover div {
+				width: 300px;
+				height: 300px;
+				opacity: 0;
+			}
+			
+			
+			@media only screen and (min-width: 600px) {
+				nav button {
+					display: none;
+				}
+				nav ul { 
+					list-style: none;
+					background: none;
+					position: relative;
+					left: 0;
+					height: 0;
+				}
+				nav ul li {
+					display: inline-block;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<button>&#9776;</button>
+			<ul>
+				<li><a href="">Home</a></li>
+				<li><a href="">About</a></li>
+				<li><a href="">Services</a></li>
+				<li><a href="">Photos</a></li>
+				<li><a href="">Contact</a></li>
+			</ul>
+		</nav>
+	
+	
+		<div id="dropdown">
+			<a href="">Açıl Susam, açıl</a>
+			<ul>
+				<li>Dollar</li>
+				<li>Qızıl</li>
+				<li>Daş-qaş</li>
+			</ul>
+		</div>
+	
+	
+		<button id="button">Ok <div></div></button>
+	</body>
+</html>

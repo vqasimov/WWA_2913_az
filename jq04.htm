@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<style>
+			#slider {
+				width: 800px;
+				height: 600px;
+				margin: 50px auto;
+				border: 1px solid gray;
+				background: silver center/cover;
+			}
+			#tumbs {
+				position: relative;
+				z-index: 99;
+				bottom: 5px;
+				width: 800px;
+				height: 70px;
+				margin: -100px auto;
+				display: flex;
+				justify-content: space-between;
+			}
+			#tumbs>img {
+				height: 70px;
+				border: 1px solid #FFF;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+	
+		<div id="slider"></div>
+	
+		<script>
+			$(document).ready(function(){
+				let images = ["2.jpg","3.jpg","4.jpg","7.jpg","8.jpg","5.jpg","1.jpg"];
+				let slider = $("#slider");
+				let x = 0;
+				let t;
+				
+				slider.after('<div id="tumbs"></div>');
+				$("#tumbs").append(images.map(item=>'<img src="../img/'+item+'" />' ));
+				
+				start();
+
+				slider.click(function(e){
+					stop()
+					if( e.pageX > $(window).width() / 2 ) x++;
+					else x--;
+					start();
+				});
+				
+				$("#tumbs>img").click( function(){
+					stop()
+					x = $(this).index();
+					start();
+				});
+				
+				function start(){
+					show();
+					t = setInterval(()=>{
+						x++;
+						show();
+					}, 3000);
+				}
+				
+				function stop() {
+					clearInterval(t);
+				}
+				
+				function show(){
+					if (x >= images.length) x = 0;
+					if (x < 0) x = images.length - 1;
+					slider
+						.css("backgroundImage", "url('" + '../img/' + images[x] + "')")
+						.fadeOut(0)
+						.fadeIn("slow");
+					active();
+				}
+				
+				function active() {
+					$("#tumbs>img").removeAttr("style");
+					$("#tumbs>img").eq(x).css({
+						opacity: ".5",
+						border: "2px solid yellow"
+					});
+				}
+				
+				
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+

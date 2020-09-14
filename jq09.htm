@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<style>
+			* { box-sizing: border-box; }
+			body { margin: 0 }
+			#puzzle {
+				position: relative;
+				margin: 50px 0 0 50px;
+				width: 800px;
+				height: 600px;
+				border: 1px solid gray;
+				box-shadow: 0 0 10px #000;
+			}
+			#puzzle > div {
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				border: 1px solid silver;
+			}
+		</style>
+	</head>
+	<body>		
+		<div id="puzzle"></div>
+		
+		<script>
+			$(document).ready(()=>{
+				let A = [];
+				let img = "../img/00.jpg";
+				let puzzle = $("#puzzle");
+				
+				puzzle.append( $("<img />")
+					.attr("src",img)
+					.css({
+						position: "absolute",
+						opacity: ".1",
+						zIndex: 0,
+						userSelect: "none"
+					}) );
+				
+				for(i=0; i<6; i++){
+					A[i] = [];
+					for(j=0; j<8; j++){	
+						puzzle.append( createDiv(i,j) );
+					}
+				}
+				
+				function createDiv(i,j){
+					return $("<div/>")
+						.css({
+							background: "url('" + img + "') " + (-100*j) + "px " + (-100*i) + "px",
+							position: "absolute",
+							left: random(805, $(window).width() - 160 ),
+							top: random(-45, 600),
+							transform: "rotate(" + random(-15, 15) + "deg)",
+							boxShadow: "1px 1px 5px #000",
+						})
+						.draggable({ 
+							snap: "#puzzle>div ,#puzzle",
+							start: function( event, ui ) {
+								$(this).css({
+									transform: "rotate(0)",
+								})
+							},
+							stop: function( event, ui ) {
+								let elem = ui.helper[0];
+								let left = Math.round(ui.position.left / 100) * 100;
+								let top = Math.round(ui.position.top / 100) * 100;
+								$(this).css({
+									left: left,
+									top: top
+								})
+								
+								check(this);
+							}							
+						});
+				}
+				
+				function random(min,max) {
+					return Math.floor(Math.random() * (max - min + 1) ) + min;
+				}
+				
+				function check(elem) {
+					let i = -1 * parseInt(elem.style.backgroundPositionY)/100
+					let j = -1 * parseInt(elem.style.backgroundPositionX)/100
+					let x = parseInt(elem.style.left)/100;
+					let y = parseInt(elem.style.top)/100;
+					let ok = true;
+					
+					A[i][j] = i == y && j == x;
+					
+					for(i=0; i<6; i++){
+						for(j=0; j<8; j++){	
+							if ( !A[i][j] ) ok = false;
+						}
+					}
+					
+					if(ok) alert("TƏBRİKLƏR !!! ");
+				}
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+

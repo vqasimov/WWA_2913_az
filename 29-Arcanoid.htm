@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS</title>
+		<style>
+			body { background: silver; display: flex; } 
+			#oyun { width: 800px; height: 600; margin: auto;
+				background: #FFF; border: 1px solid gray; 
+				position: relative; }
+			#ball { width: 40px; height: 40px; border-radius: 20px;
+				background: red; position: absolute; }
+				
+			#bar { width: 100px; height: 10px; top: 580px;
+				position: absolute; background: blue;}
+		</style>
+	</head>
+	<body>
+		<div id="oyun">
+			<div id="ball"></div>
+			<div id="bar"></div>
+		</div>
+		
+		<script>
+			const ball = document.getElementById("ball");
+			const bar = document.getElementById("bar");
+			let bt = bl = barl = .00001;
+			let bdy = bdx = 5;
+			const start = setInterval(ballMove, 40);
+			
+			document.onkeydown = checkKey;
+			
+			function checkKey(e) {
+				if (e.keyCode == '37' && barl > 10) barl -= 10;
+				else if (e.keyCode == '39' && barl < 700 ) barl += 10;
+				bar.style.left = barl + "px";
+			}
+			function ballMove() {
+				if(bl <= 0 || bl >= 760) bdx *= -1;
+				if(bt <= 0 || 
+					bt >= 540 && bl > barl - 20 && bl < barl + 80 )
+					bdy *= -1;
+				if(bt >= 560) gameOver();
+				bl += bdx;
+				bt += bdy;
+				
+				ball.style.left = bl + "px";
+				ball.style.top = bt + "px";
+			}
+			function gameOver() {
+				clearInterval(start);
+				alert("UDUZDUN QAGA");
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

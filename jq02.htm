@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>jQuery - Hamburger</title>
+		<style>
+			body { background: #EFEFEF; margin: 0; }
+			.container {
+				width: 95%;
+				min-height: 100vh;
+				margin: auto;
+				background: #FFF;
+				box-shadow: 0 0 5px gray;
+			}
+			#hamburger {
+				position: absolute;
+				padding: 10px 15px; 
+				margin: 10px;
+				border: 1px solid gray; 
+				font: 1em Arial;
+			}
+			nav { position: relative; } 
+			nav>ul { 
+				display: none; 	
+				list-style: none;
+				position: absolute;
+				padding: 0 10px;
+				top: 70px;
+			}
+			
+			
+			@media only screen and (min-width: 600px) {
+				.container { max-width: 1000px; }
+				#hamburger { display: none; }
+				nav>ul  { display: block; width: 100%; top: 10px; text-align: center;}
+				nav>ul li { 
+					display: inline-block; 
+					padding: 20px; 
+				}
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<nav>
+				<button id="hamburger">&#9776;</button>
+				<ul>
+					<li><a href ="">Home</a></li>
+					<li><a href ="">About Us</a></li>
+					<li><a href ="">Services</a></li>
+					<li><a href ="">Photo Gallery</a></li>
+					<li><a href ="">Contact Us</a></li>
+				</ul>
+			</nav>	
+		</div>
+
+	
+		<script>
+			$(document).ready(()=>{
+				$("#hamburger").click(()=>{
+					$("nav>ul").animate({
+						top : "toggle"
+					});
+				})
+				
+				$(window).on('resize', function(){ 						
+					if ($(this).width() > 600) $("nav>ul").show();
+					else $("nav>ul").hide();
+				});
+			});		
+		</script>
+	</body>
+</html>
+
+
+
+
+

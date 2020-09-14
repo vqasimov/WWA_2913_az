@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS</title>
+	</head>
+	<body>
+		<select id="marka" onchange="modelSec()"></select>
+		<select id="model"></select>
+
+		<script>
+			let marka = document.getElementById("marka");
+			let model = document.getElementById("model");
+			let markaA = ["Audi","BMW","Daewoo","Hyundai","Jeep","Lexus","Mitsubishi","Volvo"];
+			let modelA = [	["A5", "Q3", "Q4", "Q5", "Q7", "TT"], 
+							["X3", "X5", "X6", "760", "M5", "M7"], 
+							["Nexia", "Matiz", "Gentra", "FX112", "Tico", "Nubira"], 
+							["Acsent", "Azera", "Elantra", "Sonata", "Grandeur", "SantaFe", "Getz"], 
+							["Cherokee", "Patriot", "Compass", "Commander", "Wrangler"], 
+							["CT", "ES", "GS", "LX", "NX", "RX"], 
+							["Airtrek", "Eclipce", "Lancer", "Outlanter", "Pajero", "Pinin"], 
+							["240", "FH12", "S40", "XC40"] ];
+			
+			
+			marka.innerHTML = "<option>Bütün markalar</option>";
+			for(i = 0; i < markaA.length; i++) { 
+				marka.innerHTML += "<option>" + markaA[i] + "</option>";
+			}
+
+			function modelSec() {
+				model.innerHTML = "<option>Bütün modelər</option>";
+				index = markaA.indexOf(marka.value);
+				
+				for(i = 0; i < modelA[index].length; i++) {
+					 model.innerHTML += "<option>" + modelA[index][i] + "</option>" 
+				}
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<style>
+			#slider {
+				position: relative;
+				margin: 50px auto;
+				width: 80%;
+				height: 80vh;
+				background: #efefef center/cover;
+				box-shadow: 0 0 10px #000;
+				overflow: hidden;
+			}
+			#slide {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 100%;
+				background: center/cover;
+			}
+		</style>
+	</head>
+	<body>		
+		<div id="slider"><div id="slide"></div></div>
+		
+		<script>
+			$(document).ready(()=>{
+				let images = ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg"];
+				let t;
+				let x = 0;
+				dir = 1;
+			
+				$("#slider").click(function(e){
+					if (e.pageX > $(window).width()/2) { dir = 1; x++; }
+					else  { dir = -1; x--;  }
+					start();
+				});
+			
+				start()
+				
+				function start() {
+					stop();
+					show();
+					t = setInterval(()=>{ x++; show() }, 3000);
+				}
+				
+				function stop() {
+					clearInterval(t)
+				}
+				
+				function show() {
+					if(x == images.length) x = 0;
+					if(x < 0) x = images.length - 1;
+					$("#slide")
+						.css({
+							left: dir * 100 + "%",
+							backgroundImage: "url('../img/" + images[x] + "')"
+						})
+						.animate({left: 0}, "slow", function(){
+							$("#slider").css("backgroundImage","url('../img/" + images[x] + "')");
+						});
+				}
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+

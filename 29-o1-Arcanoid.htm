@@ -1,0 +1,153 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS</title>
+		<style>
+			body { background: silver; display: flex; } 
+			#oyun { width: 800px; height: 600; margin: auto;
+				background: #FFF; border: 1px solid gray; 
+				position: relative; }
+			#oyun > div { position: absolute; }
+		</style>
+	</head>
+	<body>
+		<div id="oyun"></div>
+		
+		<script>
+			const oyun = document.getElementById("oyun");
+			let w = oyun.offsetWidth;
+			let h = oyun.offsetHeight;
+
+			let bricks = [];
+			let setir = 3;
+			let sutun = 6;
+			let margin = 10;
+			createBricks();
+			createObj("ball");
+			createObj("bar");
+
+			let ball = {
+				elem: document.getElementById("ball"),
+				width: 20,
+				height: 20,
+				color: "red",
+				y: 50 * setir + margin * (setir + 1), 
+				x: .1,
+				dx: 5,
+				dy: 5,
+			}
+			let bar = {
+				elem: document.getElementById("bar"),
+				width: 150,
+				height: 15,
+				color: "blue",
+				y: 580,
+				x: .1,
+				speed: 10
+			}
+			const start = setInterval(ballMove, 40);
+			showBar();
+			document.onkeydown = barMove;
+			
+			function barMove(e) {
+				if (e.keyCode == '37' && bar.x > bar.speed) bar.x -= bar.speed;
+				else if (e.keyCode == '39' && bar.x < w - bar.width ) bar.x += 10;
+				showBar();				
+			}
+			function ballMove() {
+				if(ball.x <= 0 || ball.x >= w - ball.width) ball.dx *= -1;
+				if(ball.y <= 0) ball.dy *= -1;
+				if( collision(bar) ) ball.dy *= -1.1;
+				if(ball.y >= h - ball.height) gameOver();
+				ball.x += ball.dx;
+				ball.y += ball.dy;		
+				for(i = 0; i < bricks.length; i++) {
+					let brick = bricks[i];
+					if (brick.status == 1 && collision(brick)) { 
+						brick.status = 0;
+						showBricks();
+					}
+				}
+				showBall();
+			}
+			function showBall() {
+				ball.elem.style.width = ball.width + "px";
+				ball.elem.style.height = ball.height + "px";
+				ball.elem.style.borderRadius  = "50%";
+				ball.elem.style.background  = ball.color;
+				ball.elem.style.left = ball.x + "px";
+				ball.elem.style.top = ball.y + "px";
+			}
+			
+			function showBar() {			
+				bar.elem.style.width = bar.width + "px";
+				bar.elem.style.height = bar.height + "px";
+				bar.elem.style.left = bar.x + "px";
+				bar.elem.style.top = bar.y + "px";
+				bar.elem.style.background = bar.color;
+			}
+			
+			function showBricks() {
+				for(i = 0; i < bricks.length; i++) {
+					let brick = bricks[i];
+					let id = "b" + i;
+					let elem = document.getElementById(id);
+					if(brick.status == 1) {
+						elem.style.width = brick.width + "px";
+						elem.style.height = brick.height + "px";
+						elem.style.background = brick.color;
+						elem.style.left = brick.x + "px";
+						elem.style.top = brick.y + "px";
+					} else elem.style.display = "none";
+				}
+			}
+			
+			function gameOver() {
+				oyun.innerHTML = "";
+				clearInterval(start);
+				alert("UDUZDUN QAGA");
+			}
+			
+			function collision(obj) {
+				let o = obj;
+				return (o.x - ball.width < ball.x &&
+						o.x < o.x + o.width &&
+						o.y - ball.height < ball.y &&
+						ball.y < o.y + o.height);
+			}
+			
+			function createObj(name) {
+				let div = document.createElement('div');
+				div.setAttribute('id', name);
+				oyun.appendChild(div);
+			}
+			
+			function createBricks() {				
+				let count = 0;
+				for(i = 1; i <= setir; i++) {
+					for(j = 1; j <= sutun; j++) {
+						let id = "b" + count++;
+						let brick = new Brick(i,j);
+						bricks.push(brick);
+						createObj(id);
+					}
+				}
+			}
+			
+			function Brick(i,j) {
+				this.width = (w - margin * (sutun + 1)) / sutun;
+				this.height = this.width / 4;
+				this.color = "orange";
+				this.x = j * margin + (j - 1) * this.width;
+				this.y = i * margin + (i - 1) * this.height;
+				this.status = 1;
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

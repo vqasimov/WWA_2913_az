@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>JS</title>
+	</head>
+	<body>
+		<input id="il" type="text">
+		<select id="ay"></select>
+		<button onclick="tap()">Ok</button>
+		<span id="cavab"></span>
+
+		<script>
+			let il = document.getElementById("il");
+			let ay = document.getElementById("ay");
+			let cavab = document.getElementById("cavab");
+			let aylar = ["", "yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avqust", "sentyabr", "oktyabr", "noyabr", "dekabr"];
+			let gun = [ [2],
+						[4, 6, 9, 11],
+						[1, 3, 5, 7, 8, 10, 12] ];
+			
+			for(i = 1; i < aylar.length; i++) {
+				ay.innerHTML += "<option>" + aylar[i] + "</option>";
+			}
+
+			function tap() {
+				let ilval = il.value;
+				let ayadi = ay.value;
+				let ayno = aylar.indexOf(ayadi);
+				
+				for(i = 0; i < gun.length; i++) {
+					if(gun[i].indexOf(ayno) != -1) {
+						gunsay = i + 29;
+						if (ayno == 2 && ilval%4 != 0) gunsay -= 1; 
+						cavab.innerHTML = gunsay;
+					}
+				}				
+			}
+			
+			console.log(aylar);
+		</script>
+	</body>
+</html>
+
+
+
+
+
+

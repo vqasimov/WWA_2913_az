@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<style>
+			#slider {
+				width: 88%;
+				height: 88vh;
+				margin: 30px auto;
+				box-shadow: 0 0 10px gray;
+				position: relative;
+				overflow: hidden;
+			}
+			#ribbon {
+				position: absolute;
+				display: flex;
+			}
+			#tumbs {
+				position: absolute;
+				width: 100%;
+				bottom: 5px;
+				text-align: center;
+			}
+			#tumbs>img {
+				width: 32px;
+				height: 32px;
+				border-radius: 50%;
+				border: 2px solid #fff;
+				box-shadow: 0 0 5px black;
+				margin: 0 10px;
+				cursor: pointer;
+			}
+			#tumbs>img:hover {
+				opacity: .5;
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="slider">
+			<div id="ribbon"></div>
+			<div id="tumbs"></div>
+		</div>	
+
+		<script>
+			$(document).ready(function(){
+				let images = ["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg","6.jpg","7.jpg","8.jpg"];
+				let imgtags = images.map(item=>'<img src="../img/'+item+'" />');
+				let width;
+				let height;
+				let t;
+				let dest = 0;
+				
+				$("#ribbon").append(imgtags);
+				$("#tumbs").append(imgtags);
+				$("#tumbs>img").click(function(){
+					dest = $(this).index();
+					start();
+				});
+				
+				$(window).on('resize', init);
+				init();
+				start();
+				
+				function start(){
+					stop();
+					slide();
+					t = setInterval(()=>{
+						dest++;
+						slide();
+					} ,3000);
+				}
+				function stop(){
+					clearInterval(t);
+				}
+				function slide(){
+					if(dest > images.length - 1) dest = 0;
+					$("#ribbon").animate({left: -1 * dest * width}, 500);
+				}
+				function init() {
+					width = $("#slider").width();
+					height = $("#slider").height();
+					$("#ribbon").css({
+							width: width * images.length
+						})
+					$("#ribbon>img").css({
+						width: width,
+						height: height,
+						objectFit: 'cover'
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+

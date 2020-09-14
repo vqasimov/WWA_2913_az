@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<style>
+			body { background: #EFEFEF; margin: 0; }
+			.container {
+				width: 95%;
+				min-height: 100vh;
+				margin: auto;
+				padding: 30px;
+				background: #FFF;
+				box-shadow: 0 0 5px gray;
+			}
+			img { width: 200px; float: left; margin: 30px;}
+			
+			
+			@media only screen and (min-width: 600px) {
+				.container { max-width: 800px; }
+
+			}
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(()=>{				
+				let images;
+				let img = "";
+				let x;
+				
+				$("body").append('<div id="zoom"></div>');
+				$("#zoom")
+					.css({
+						position: "fixed",
+						top: "0",
+						left: "0",
+						zIndex: "99",
+						width: "100%",
+						height: "100vh",
+						background: "rgba(0,0,0,.7)",
+						display: "none"
+					})
+					.html('<div><img /><button id="close">&#10799;</button><button id="prev">&#8249;</button><button id="next">&#8250;</button></div>')
+					.click(close);
+					
+				$("button").css({
+					position: 'absolute',
+					background: "none",
+					outline: "none",
+					padding: "0",
+					border: "none",
+					color: "#FFF",
+					font: "bold 3em/.8 Arial",
+					textShadow: "0 0 5px black",
+					cursor: "pointer"
+				});
+				$("#prev").css({
+					top: '300px',
+					left: '20px',
+					display: 'none'
+				});
+				$("#next").css({
+					top: '300px',
+					right: '20px',
+					display: 'none'
+				});
+				$("#close")
+					.css({
+						top: '0',
+						right: '0',
+					})
+					.click(close);
+					
+				$("#zoom>div")
+					.click(function(e) {  e.stopPropagation(); return; })
+					.css({
+						margin: "auto",
+						width: "800px",
+						height: "600px",
+						background: "#FFF",
+						border: "10px solid #FFF",
+						position: "relative"
+					});
+					
+				$("img").not("#zoom>div>img").click(function(){
+					images = Array.from( $("img").not("#zoom img") ).map(item => item.src);
+					
+					$("#zoom").css({"display": "flex"});
+					img = $(this).attr("src");
+					show();
+				})
+				
+				$("#zoom>div>img").on({					
+					mousemove: function(e){
+						x = images.indexOf( $(this)[0].src);
+						if( e.pageX > $("#zoom").width()/2 + $("#zoom img").width()*.25 && x < images.length - 1 )
+							$("#next").fadeIn(500);
+						else if( e.pageX < $("#zoom").width()/2 - $("#zoom img").width()*.25 && x > 0)
+							$("#prev").fadeIn(500);
+						else {
+							$("#prev").fadeOut(500);
+							$("#next").fadeOut(500);
+						}
+					},
+					mouseover: function(){
+						$("#prev").fadeOut(500);
+						$("#next").fadeOut(500);
+					}
+				}); 
+				
+				$("#prev").click(function(){
+					x--;
+					img = images[x];
+					show();
+				});
+				$("#next").click(function(){
+					x++;
+					img = images[x];
+					show();
+				});
+				
+				function show(){
+					$("#zoom>div>img")
+						.css({
+							margin: "0",
+							width: "100%",
+							height: "100%"
+						})
+						.attr("src", img)
+						.fadeOut(0)
+						.fadeIn("slow")
+				}
+				
+				function close(){
+					$("#zoom").fadeOut("1000")
+				}
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<section>
+				<h1>Text Content</h1>
+				<img id="i1" src="../img/2.jpg" />
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pulvinar quis odio ut eleifend. Maecenas suscipit nisi eget lobortis pretium. Cras a arcu vel nisi maximus feugiat ac in ligula. Curabitur semper ullamcorper diam, tristique luctus risus. Donec hendrerit mattis est at congue. In hac habitasse platea dictumst. Nullam id purus pulvinar, feugiat turpis et, cursus lorem. Cras dapibus lorem massa, eget fermentum neque venenatis a.</p>
+				<p>Phasellus eu dictum ipsum, sit amet maximus eros. Morbi massa metus, mattis nec nunc a, bibendum dapibus nulla. Quisque dapibus eget neque in sodales. Nullam ante metus, blandit in diam non, bibendum lacinia ligula. Aliquam eu elit eget diam cursus aliquet. Nulla at tellus in neque consectetur scelerisque non sed tellus. Mauris gravida id est ut fringilla.</p>
+			</section>
+			<article>
+				<img src="../img/4.jpg" style="float:right" />
+				<p>Quisque bibendum congue lectus, quis aliquet lacus vestibulum id. Vivamus et eros consequat nisl iaculis hendrerit at bibendum risus. Suspendisse sollicitudin felis ac egestas lacinia. Fusce venenatis felis vitae interdum consectetur. Suspendisse gravida tempus massa, sed sollicitudin justo accumsan interdum. Donec viverra porta lorem in ullamcorper. Vestibulum malesuada a est sit amet consequat. Pellentesque vulputate eros libero, ac aliquam odio pharetra at. Mauris quis libero id diam luctus scelerisque id ac nisi. Aliquam ac semper lacus, a euismod quam. Praesent egestas gravida libero, in semper nisi pharetra sit amet.</p>
+			</article>
+			<footer>
+				<img src="../img/6.jpg" />
+				<p>Maecenas eu massa accumsan, mattis nibh ac, semper est. Mauris tellus erat, rhoncus a ultricies ac, pharetra ut elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam hendrerit diam eget justo sodales, imperdiet iaculis nibh egestas. Nullam odio ex, pharetra ac ultrices ut, cursus id ex. Quisque sagittis vehicula nisl, a mollis magna commodo non. Pellentesque non mauris auctor, semper metus eu, dignissim tellus. Aliquam eget tempor arcu. Nam vitae diam quam. Phasellus eleifend mauris eget porttitor commodo. Quisque tempus dapibus diam ut auctor.</p>
+				<p>Morbi scelerisque gravida velit, at bibendum arcu gravida vel. Vivamus enim nunc, rhoncus eu purus non, porttitor convallis nisi. Maecenas consequat vehicula sem, gravida ullamcorper ex. Proin porttitor malesuada metus. Mauris tempor justo quis metus accumsan tincidunt. Praesent at consectetur lectus, sit amet convallis urna. Quisque accumsan porta justo, ut vestibulum risus malesuada et.</p>
+			</footer>
+		</div>		
+	</body>
+</html>
+
+
+
+
+

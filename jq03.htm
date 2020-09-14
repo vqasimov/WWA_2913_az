@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>jQuery</title>
+		<style>
+			.lime { background: lime; }
+			.orange { background: orange; }
+			.yellow { background: yellow; }
+		</style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<input placeholder="adin nedir?" />
+		<button>Ok</button>
+		<div id="test"></div>
+	
+		<script>
+			$(document).ready(function(){
+				let WWA2913az = ["Elmar", "Murad", "Kenan", "Ilahe", "Ilkin", "Natiq", "Elgun", "Emin"];
+				$("button").click(function(){					
+					//$("#test").html( "Salam, " + $("input").val() ).hide().slideDown(2000);
+					$("input").val( (i,old)=>{return "Salam " + old;} );				
+				});
+				$("#test").after("<ul></ul>");
+				
+				$("ul").append(WWA2913az.map(item => "<li>"+item+"</li>"));
+				
+				//$("#test").remove();
+
+				$("ul>li").remove(":nth-child(2), :nth-child(4)");
+				
+				$("li").hover(
+					function() { $(this).addClass("lime") },
+					function() { $("li").removeClass("lime") }
+				);
+				
+				$("li").click(function(){
+					$("li").not(this).removeClass("orange");
+					$(this).toggleClass("orange");
+					
+					if ($(this).hasClass('orange')) {
+						$(this).css({
+							color : "white",
+							fontWeight : "bold"
+						});
+					} else $(this).css({
+							color : "black",
+							fontWeight : "normal"
+						});
+				});
+				
+				$("#test").css({
+					width: "400px",
+					height: "400px",
+					background: "#EFEFEF",
+					display: "flex"
+				});
+				
+				let img = document.createElement("img");
+				img.src = "../img/6.jpg";
+				img.onload = function() {
+					$('#test').append(img);
+					if($("#test>img").width() > $("#test>img").height()) 
+						$("#test>img").width( $("#test").width() );
+					else $("#test>img").height( $("#test").height() );
+					$("#test>img").css("margin", "auto");
+				};
+				
+				
+			});
+		</script>
+	</body>
+</html>
+
+
+
+
+
